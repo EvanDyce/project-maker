@@ -1,6 +1,7 @@
 from templates.Project import Project
 
-class JavaProject(Project):
-    def __init__(self) -> None:
+class JavaProject():
+    def __init__(self, projectName) -> None:
+        self.projectName = projectName
         super().__init__('java')
         

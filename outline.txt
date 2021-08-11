@@ -1,6 +1,7 @@
 Class Attributes
   - Path to location that acts as the pathlike object
     - defaults to the current working directory
+  - file list 
   - Files to create and File Structure
   - Root path location to build everything off of
 	- Create new directory in the path location and make that the root 

@@ -1,47 +1,26 @@
 import os
 import shutil
+from templates.Project import Project
 
-class PythonProject():
+class PythonProject(Project):
     def __init__(self, projectName, useGit) -> None:
-        self.path = 'C:\\users\\evan\\coding\\python\\'
-        self.projectName = projectName
-        self.useGit = useGit
+        super().__init__(projectName, useGit)
         self.makeStructure()
 
     def makeStructure(self):
-        root = os.path.abspath(self.path)
+        root = super().makeStructure()
 
-        # check if the directory already exists
-        # if it does give the option to delete it, else end program
-        if os.path.exists(os.path.join(root, self.projectName)):
-            answer = input('Replace existing folder?(y/n)')
-
-            if answer == 'y':
-                try:
-                    # os.system(f'cmd /c "cd {root} & rmdir -rf .git"')
-                    os.system(f'cmd /c "cd {root} & rmdir /s /q {self.projectName}"')
-                    # shutil.rmtree(os.path.join(root, self.projectName))
-                except(PermissionError):
-                    print('File cannot be accessed it is being used by another process')
-                    return
-                    
-            else:
-                print('Project Creation Cancelled')
-                return
-
-        # makes the project directory
-        os.mkdir(os.path.join(root, self.projectName))
-
-        # updates root value to keep up 
-        root = os.path.join(root, self.projectName)
-
+        f = open(root + '\\outline.txt', 'w')
+        f.close()
+        
         # makes package directory
         self.makePackage(root)
         self.makeTests(root)
         # os.mkdir(os.path.join(root, self.projectName))
         if self.useGit:
-            # TODO add git here
-            self.addGitRepo(root)
+            gitignoreLines = ['*.pyc', 'test']
+            otherFiles = ['README.md', 'outline.txt']
+            super().addGitRepo(root, gitignoreLines, otherFiles)
 
     def makePackage(self, path):
         package_root = os.path.join(path, self.projectName)

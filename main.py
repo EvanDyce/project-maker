@@ -19,7 +19,7 @@ def main():
         print('Invalid Project Name')
         return
 
-    useGit = input('Integrate Git?(y/n)')
+    useGit = input('Use Git?(y/n)')
     if useGit == 'y':
         typeMap[projectType](projectName, True)
     else:
