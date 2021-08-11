@@ -1,12 +1,11 @@
-import os
+import os, sys
 
 class Project():
 
-    def __init__(self, projectName, useGit) -> None:
-        print('super init called')
-        self.path = 'C:\\users\\evan\\coding\\python\\'
+    def __init__(self, directory, projectName) -> None:
+        self.path = f'C:\\users\\evan\\coding\\{directory}\\'
+        print(self.path)
         self.projectName = projectName
-        self.useGit = useGit
 
     def makeStructure(self):
         '''Checks if the directory already exists. If it does
@@ -31,7 +30,7 @@ class Project():
                     
             else:
                 print('Project Creation Cancelled')
-                return
+                sys.exit(0)
 
         # makes the project directory
         os.mkdir(os.path.join(root, self.projectName))
@@ -45,18 +44,8 @@ class Project():
             f.writelines('\n'.join(gitignoreFiles))
 
         for file in otherFileList:
-            print(file)
             f = open(path + '\\' + file, 'w')
             f.close()
 
         os.system(f'cmd /c "cd {path} & git init & git add --all"')
-
-    def create_project() -> bool:
-        pass
-
-    def delete_project() -> bool:
-        pass
-
-    def rename_project() -> bool:
-        pass
 

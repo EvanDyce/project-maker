@@ -3,7 +3,7 @@ import os
 
 class JavaProject(Project):
     def __init__(self, projectName) -> None:
-        super().__init__(projectName)
+        super().__init__('java', projectName)
         self.projectName = projectName
         self.makeStructure()
 
