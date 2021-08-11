@@ -3,8 +3,8 @@ import shutil
 from templates.Project import Project
 
 class PythonProject(Project):
-    def __init__(self, projectName, useGit) -> None:
-        super().__init__(projectName, useGit)
+    def __init__(self, projectName) -> None:
+        super().__init__(projectName)
         self.makeStructure()
 
     def makeStructure(self):
@@ -17,10 +17,9 @@ class PythonProject(Project):
         self.makePackage(root)
         self.makeTests(root)
         # os.mkdir(os.path.join(root, self.projectName))
-        if self.useGit:
-            gitignoreLines = ['*.pyc', 'test']
-            otherFiles = ['README.md', 'outline.txt']
-            super().addGitRepo(root, gitignoreLines, otherFiles)
+        gitignoreLines = ['*.pyc', 'test']
+        otherFiles = ['README.md', 'outline.txt']
+        super().addGitRepo(root, gitignoreLines, otherFiles)
 
     def makePackage(self, path):
         package_root = os.path.join(path, self.projectName)
@@ -51,18 +50,6 @@ class PythonProject(Project):
         f = open(test_root + '\\test.py', 'w')
         f.close()
 
-    def addGitRepo(self, path):
-        fileList = ['README.md']
-        gitIgnoreFiles = ['*.pyc\n', 'test']
-
-        with open(path + '\\.gitignore', 'w') as f:
-            f.writelines(gitIgnoreFiles)
-
-        for file in fileList:
-            f = open(path + '\\' + file, 'w')
-            f.close()
-
-        os.system(f'cmd /c "cd {path} & git init & git add --all"')
 
 
 

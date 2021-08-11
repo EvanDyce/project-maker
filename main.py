@@ -19,12 +19,7 @@ def main():
         print('Invalid Project Name')
         return
 
-    useGit = input('Use Git?(y/n)')
-    if useGit == 'y':
-        typeMap[projectType](projectName, True)
-    else:
-        typeMap[projectType](projectName, False)
-
+    typeMap[projectType](projectName)
 
 if __name__ == "__main__":
     main()
