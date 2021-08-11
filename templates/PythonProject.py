@@ -18,7 +18,10 @@ class PythonProject():
 
             if answer == 'y':
                 try:
-                    shutil.rmtree(os.path.join(root, self.projectName))
+                    # os.system(f'cmd /c "cd {root} & rmdir -rf .git"')
+                    print(root)
+                    os.system(f'cmd /c "cd {root} & rmdir /s {self.projectName}"')
+                    # shutil.rmtree(os.path.join(root, self.projectName))
                 except(PermissionError):
                     print('File cannot be accessed it is being used by another process')
                     return
@@ -40,7 +43,7 @@ class PythonProject():
         # os.mkdir(os.path.join(root, self.projectName))
         if self.useGit:
             # TODO add git here
-            pass
+            self.addGitRepo(root)
 
     def makePackage(self, path):
         package_root = os.path.join(path, self.projectName)
@@ -63,10 +66,22 @@ class PythonProject():
         test_root = os.path.join(path, self.projectName)
 
         # make test directory
+        if os.path.exists(test_root):
+            shutil.rmtree(test_root)
+        
         os.mkdir(test_root)
 
-        f = open(test_root + '\\test.py')
+        f = open(test_root + '\\test.py', 'w')
+        f.close()
 
+    def addGitRepo(self, path):
+        fileList = ['.gitignore', 'README.md', ]
+
+        for file in fileList:
+            f = open(path + '\\' + file, 'w')
+            f.close()
+
+        os.system(f'cmd /c "cd {path} & git init & git add --all"')
 
 
 
