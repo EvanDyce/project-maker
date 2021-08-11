@@ -19,8 +19,7 @@ class PythonProject():
             if answer == 'y':
                 try:
                     # os.system(f'cmd /c "cd {root} & rmdir -rf .git"')
-                    print(root)
-                    os.system(f'cmd /c "cd {root} & rmdir /s {self.projectName}"')
+                    os.system(f'cmd /c "cd {root} & rmdir /s /q {self.projectName}"')
                     # shutil.rmtree(os.path.join(root, self.projectName))
                 except(PermissionError):
                     print('File cannot be accessed it is being used by another process')
@@ -36,7 +35,6 @@ class PythonProject():
         # updates root value to keep up 
         root = os.path.join(root, self.projectName)
 
-        print('Making Package')
         # makes package directory
         self.makePackage(root)
         self.makeTests(root)
@@ -63,7 +61,7 @@ class PythonProject():
         f.close()
         
     def makeTests(self, path):
-        test_root = os.path.join(path, self.projectName)
+        test_root = os.path.join(path, 'test')
 
         # make test directory
         if os.path.exists(test_root):
@@ -75,7 +73,11 @@ class PythonProject():
         f.close()
 
     def addGitRepo(self, path):
-        fileList = ['.gitignore', 'README.md', ]
+        fileList = ['README.md']
+        gitIgnoreFiles = ['*.pyc\n', 'test']
+
+        with open(path + '\\.gitignore', 'w') as f:
+            f.writelines(gitIgnoreFiles)
 
         for file in fileList:
             f = open(path + '\\' + file, 'w')

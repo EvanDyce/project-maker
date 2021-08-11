@@ -1,6 +1,5 @@
 from templates.PythonProject import PythonProject
 from templates.JavaProject import JavaProject
-from templates.PythonProject import PythonProject
 
 
 def main():
