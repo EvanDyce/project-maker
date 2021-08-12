@@ -1,10 +1,11 @@
 import os
+from posixpath import split
 import shutil
 from templates.Project import Project
 
 class PythonProject(Project):
     def __init__(self, projectName) -> None:
-        super().__init__(projectName)
+        super().__init__('python', projectName)
         self.makeStructure()
 
     def makeStructure(self):
@@ -17,7 +18,8 @@ class PythonProject(Project):
         self.makePackage(root)
         self.makeTests(root)
         # os.mkdir(os.path.join(root, self.projectName))
-        gitignoreLines = ['*.pyc', 'test']
+
+        gitignoreLines = ['.DS_Store', '.huskyrc.json', 'out', 'log.log', '**/node_modules', '*.pyc', '*.vsix', '**/.vscode/.ropeproject/**', '**/testFiles/**/.cache/**', '*.noseids', '.nyc_output', '.vscode-test', '__pycache__', 'npm-debug.log', '**/.mypy_cache/**', '!yarn.lock', 'coverage/', 'cucumber-report.json', '**/.vscode-test/**', '**/.vscode test/**', '**/.vscode-smoke/**', '**/.venv*/', 'port.txt', 'precommit.hook', 'pythonFiles/lib/**', 'debug_coverage*/**', 'languageServer/**', 'languageServer.*/**', 'bin/**', 'obj/**', '.pytest_cache', 'tmp/**', '.python-version', '.vs/', 'test-results*.xml', 'xunit-test-results.xml', 'build/ci/performance/performance-results.json', '!build/', 'debug*.log', 'debugpy*.log', 'pydevd*.log', 'nodeLanguageServer/**', 'nodeLanguageServer.*/**']
         otherFiles = ['README.md', 'outline.txt']
         super().addGitRepo(root, gitignoreLines, otherFiles)
 
