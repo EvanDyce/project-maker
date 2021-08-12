@@ -4,7 +4,6 @@ class Project():
 
     def __init__(self, directory, projectName) -> None:
         self.path = f'C:\\users\\evan\\coding\\{directory}\\'
-        print(self.path)
         self.projectName = projectName
 
     def makeStructure(self):
@@ -48,4 +47,3 @@ class Project():
             f.close()
 
         os.system(f'cmd /c "cd {path} & git init & git add --all"')
-

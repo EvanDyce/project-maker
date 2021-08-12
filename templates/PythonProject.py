@@ -51,8 +51,3 @@ class PythonProject(Project):
 
         f = open(test_root + '\\test.py', 'w')
         f.close()
-
-
-
-
-
