@@ -26,7 +26,7 @@ class Project():
                     # shutil.rmtree(os.path.join(root, self.projectName))
                 except(PermissionError):
                     print('File cannot be accessed it is being used by another process')
-                    return
+                    sys.exit(0)
                     
             else:
                 print('Project Creation Cancelled')
